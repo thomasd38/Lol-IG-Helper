@@ -225,7 +225,6 @@ HTML = "";
 players.forEach(element => {
     HTML += "<div class='summs-container'>";
     HTML += "<img id='"+element.pos+"Sum1' oncontextmenu='changeSum(event, \""+element.pos+"\",\"1\")' class='sum sum1' src='./img/"+element.sum1+".png' onclick='toggleSumm(\""+element.pos+"\",\""+element.sum1+"\");'>";
-    HTML +=     
     HTML += "<img id='"+element.pos+"Sum2' oncontextmenu='changeSum(event, \""+element.pos+"\",\"2\")' class='sum sum2' src='./img/"+element.sum2+".png' onclick='toggleSumm(\""+element.pos+"\",\""+element.sum2+"\");'><br>";
     HTML += "</div>";
 });
