@@ -1,0 +1,64 @@
+#timer {
+    position: absolute;
+    font-size: 50px;
+    top: 5px;
+    width: 100%;
+    text-align: center;
+}
+#container {
+    position: absolute;
+    width: 300px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.sum {
+    position: absolute;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+}
+.sum:hover {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.sum1 {
+    left: 33%;
+}
+.sum2 {
+    left: 66%;
+}
+.summs-container {
+    margin-top: 20px;
+    position: relative;
+    height: 100px;
+}
+.summs-container:first-child {
+    margin-top: 100px;
+}
+#summs-menu {
+    position: absolute;
+    left: -999px;
+    top: 0px;
+    border: solid 1px lightgrey;
+    background: white;
+    width: 150px;
+    padding: 5px;
+}
+#summs-menu img {
+    padding: 5px;
+}
+#summs-menu img:hover {
+    cursor: pointer;
+}
+.timer-input {
+    font-size: 30px;
+    width: 33px;
+}
+#restartGame {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
