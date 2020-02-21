@@ -1,7 +1,3 @@
-function $(elem) {
-    return document.querySelector(elem);
-}
-
 let summoner = "";
 let url = new URL(window.location.href);
 summoner = url.searchParams.get("summoner");
