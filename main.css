@@ -62,6 +62,7 @@
 body {
     margin: 0;
     padding: 0;
+    color: #212529;
 }
 .dark-mode {
     color: white;
@@ -70,7 +71,6 @@ body {
 .player-pos {
     text-align: center;
     font-size: 25px;
-    color: #212529;
     font-weight: bold;
 }
 .summ-hidder {
