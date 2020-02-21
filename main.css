@@ -81,4 +81,11 @@ body {
     font-size: 30px;
     text-align: center;
     line-height: 64px;
+    cursor: pointer;
+}
+.helper {
+    position: absolute;
+    font-size: 30px;
+    top: 20px;
+    left: 0px;
 }

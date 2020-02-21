@@ -103,6 +103,9 @@ let globalPlayer = "";
 let globalSum = 1;
 let game;
 
+let ctrlPress = false;
+let majPress = false;
+
 function refreshTimer() {
     timer++;
     $('#timer').innerHTML = displaySecToMinSec(timer);
@@ -159,31 +162,67 @@ function displaySecToMinSec(s) {
         return minutes + "m "+seconds+"s";
 }
 
-function toggleSumm(pos, sum, id) {
-    useSumm(pos, id);
-    $('#'+pos+"SumHidder"+id).style.display = 'block';
+function checkPlayerCd(pos, id) {
     if (id == 1)
-        $('#'+pos+"SumHidder1").innerHTML = secToMinSec(getPlayer(pos).cd1);
+        return getPlayer(pos).cd1 < getSum(getPlayer(pos).sum1).cd;
     else
-        $('#'+pos+"SumHidder2").innerHTML = secToMinSec(getPlayer(pos).cd2);
-    if (timer - lastClick > 2)
-        summsStr = "";
-    lastClick = timer;
-    let summ = getSum(sum);
-    let player = getPlayer(pos);
-    summsStr += "" + pos + " " + summ.shortName + " " + secToMinSec(timer+summ.cd, true) + " ";
-    copyStringToClipboard(summsStr);
+        return getPlayer(pos).cd2 < getSum(getPlayer(pos).sum2).cd;
 }
 
-function useSumm(pos, id) {
+function resetSumm(pos, id) {
     for (let index = 0; index < players.length; index++) {
         const element = players[index];
         if (element.pos == pos) {
             if (id == 1) {
-                players[index].cd1--;
+                element.cd1 = getSum(element.sum1).cd;
+                $('#'+element.pos+"SumHidder1").style.display = 'none';
             }
             else {
-                players[index].cd2--;
+                element.cd2 = getSum(element.sum2).cd;
+                $('#'+element.pos+"SumHidder2").style.display = 'none';
+            }
+        }
+    }
+}
+
+function toggleSumm(pos, sum, id) {
+    if (checkPlayerCd(pos,id)) {
+        resetSumm(pos,id);
+    }
+    else {
+        if (ctrlPress)
+            useSumm(pos, id, 5);
+        else if (majPress)
+            useSumm(pos, id, 10);
+        else
+            useSumm(pos, id);
+        $('#'+pos+"SumHidder"+id).style.display = 'block';
+        if (id == 1)
+            $('#'+pos+"SumHidder1").innerHTML = secToMinSec(getPlayer(pos).cd1);
+        else
+            $('#'+pos+"SumHidder2").innerHTML = secToMinSec(getPlayer(pos).cd2);
+        if (timer - lastClick > 2)
+            summsStr = "";
+        lastClick = timer;
+        let summ = getSum(sum);
+        summsStr += "" + pos + " " + summ.shortName + " " + secToMinSec(timer+summ.cd, true) + " ";
+        copyStringToClipboard(summsStr);
+    }
+}
+
+function useSumm(pos, id, nb = 1) {
+    for (let index = 0; index < players.length; index++) {
+        const element = players[index];
+        if (element.pos == pos) {
+            if (id == 1) {
+                for (let i = 0; i < nb; i++) {
+                    players[index].cd1--;
+                }
+            }
+            else {
+                for (let i = 0; i < nb; i++) {
+                    players[index].cd2--;
+                }
             }
         }
     }
@@ -225,6 +264,7 @@ function switchSum(s) {
     let summNb = globalSum;
     $('#'+globalPlayer+"Sum"+summNb).src = "./img/"+sum.name+".png";
     $('#'+globalPlayer+"Sum"+summNb).setAttribute("onclick", "toggleSumm(\""+globalPlayer+"\",\""+sum.name+"\","+summNb+");");
+    $('#'+globalPlayer+"SumHidder"+summNb).setAttribute("onclick", "toggleSumm(\""+globalPlayer+"\",\""+sum.name+"\","+summNb+");");
     if (summNb == 1)
         setPlayerSum(globalPlayer,sum,1);
     else
@@ -269,8 +309,8 @@ players.forEach(element => {
     HTML += "<div class='player-pos'>"+element.pos+"</div>";
     HTML += "<img id='"+element.pos+"Sum1' oncontextmenu='changeSum(event, \""+element.pos+"\",\"1\")' class='sum sum1' src='./img/"+element.sum1+".png' onclick='toggleSumm(\""+element.pos+"\",\""+element.sum1+"\",1);'>";
     HTML += "<img id='"+element.pos+"Sum2' oncontextmenu='changeSum(event, \""+element.pos+"\",\"2\")' class='sum sum2' src='./img/"+element.sum2+".png' onclick='toggleSumm(\""+element.pos+"\",\""+element.sum2+"\",2);'><br>";
-    HTML += "<div class='summ-hidder sum1' oncontextmenu='changeSum(event, \""+element.pos+"\",\"1\")' id='"+element.pos+"SumHidder1'></div>";
-    HTML += "<div class='summ-hidder sum2' oncontextmenu='changeSum(event, \""+element.pos+"\",\"2\")' id='"+element.pos+"SumHidder2'></div>";
+    HTML += "<div class='summ-hidder sum1' oncontextmenu='changeSum(event, \""+element.pos+"\",\"1\")' id='"+element.pos+"SumHidder1' onclick='toggleSumm(\""+element.pos+"\",\""+element.sum1+"\",1);'></div>";
+    HTML += "<div class='summ-hidder sum2' oncontextmenu='changeSum(event, \""+element.pos+"\",\"2\")' id='"+element.pos+"SumHidder2' onclick='toggleSumm(\""+element.pos+"\",\""+element.sum1+"\",2);'></div>";
     HTML += "</div>";
 });
 $('#container').innerHTML = HTML;
@@ -283,5 +323,20 @@ startGame();
 document.body.addEventListener('keydown', function(e) {
     if (e.keyCode == 27) {
         closeSumMenu();
+    }
+    else if (e.keyCode == 17) {
+        ctrlPress = true;
+    }
+    else if (e.keyCode == 16) {
+        majPress = true;
+    }
+});
+
+document.body.addEventListener('keyup', function(e) {
+    if (e.keyCode == 17) {
+        ctrlPress = false;
+    }
+    else if (e.keyCode == 16) {
+        majPress = false;
     }
 });
