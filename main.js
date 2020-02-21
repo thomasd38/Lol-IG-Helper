@@ -108,7 +108,7 @@ let majPress = false;
 
 function refreshTimer() {
     timer++;
-    $('#timer').innerHTML = displaySecToMinSec(timer);
+    $('#timer').innerHTML = "Game time : "+displaySecToMinSec(timer);
     players.forEach(element => {
         if (element.cd1 < getSum(element.sum1).cd) {
             useSumm(element.pos, 1);
