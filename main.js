@@ -108,6 +108,7 @@ function refreshTimer() {
     $('#timer').innerHTML = displaySecToMinSec(timer);
     players.forEach(element => {
         if (element.cd1 < getSum(element.sum1).cd) {
+            useSumm(element.pos, 1);
             if (element.cd1 == 0) {
                 element.cd1 = getSum(element.sum1).cd;
                 $('#'+element.pos+"SumHidder1").style.display = 'none';
@@ -115,10 +116,10 @@ function refreshTimer() {
             else {
                 $('#'+element.pos+"SumHidder1").style.display = 'block';
                 $('#'+element.pos+"SumHidder1").innerHTML = secToMinSec(element.cd1);
-                useSumm(element.pos, 1);
             }
         }
         if (element.cd2 < getSum(element.sum2).cd) {
+            useSumm(element.pos, 2);
             if (element.cd2 == 0) {
                 element.cd2 = getSum(element.sum2).cd;
                 $('#'+element.pos+"SumHidder2").style.display = 'none';
@@ -126,7 +127,6 @@ function refreshTimer() {
             else {
                 $('#'+element.pos+"SumHidder2").style.display = 'block';
                 $('#'+element.pos+"SumHidder2").innerHTML = secToMinSec(element.cd2);
-                useSumm(element.pos, 2);
             }
         }
     });
@@ -161,6 +161,11 @@ function displaySecToMinSec(s) {
 
 function toggleSumm(pos, sum, id) {
     useSumm(pos, id);
+    $('#'+pos+"SumHidder"+id).style.display = 'block';
+    if (id == 1)
+        $('#'+pos+"SumHidder1").innerHTML = secToMinSec(getPlayer(pos).cd1);
+    else
+        $('#'+pos+"SumHidder2").innerHTML = secToMinSec(getPlayer(pos).cd2);
     if (timer - lastClick > 2)
         summsStr = "";
     lastClick = timer;
