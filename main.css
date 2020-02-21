@@ -1,7 +1,7 @@
 #timer {
     position: absolute;
-    font-size: 50px;
-    top: 5px;
+    font-size: 40px;
+    bottom: 10px;
     width: 100%;
     text-align: center;
 }
@@ -33,7 +33,7 @@
     height: 100px;
 }
 .summs-container:first-child {
-    margin-top: 100px;
+    margin-top: 5px;
 }
 #summs-menu {
     position: absolute;
@@ -56,8 +56,8 @@
 }
 #restartGame {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
+    bottom: 10px;
+    left: 10px;
 }
 body {
     margin: 0;
@@ -82,7 +82,7 @@ body {
     transform: translateX(-50%);
     display: none;
     color: white;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
     line-height: 64px;
     cursor: pointer;
@@ -91,7 +91,7 @@ body {
     position: absolute;
     font-size: 30px;
     top: 20px;
-    left: 0px;
+    left: 10px;
 }
 /* The switch - the box around the slider */
 .switch {

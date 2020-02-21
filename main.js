@@ -108,7 +108,7 @@ let majPress = false;
 
 function refreshTimer() {
     timer++;
-    $('#timer').innerHTML = "Game time : "+displaySecToMinSec(timer);
+    $('#timer').innerHTML = "Game time : "+secToMinSec(timer);
     players.forEach(element => {
         if (element.cd1 < getSum(element.sum1).cd) {
             useSumm(element.pos, 1);
@@ -148,18 +148,9 @@ function secToMinSec(s) {
     var minutes = Math.floor(s / 60);
     var seconds = s - minutes * 60;
     if (minutes == 0)
-        return seconds;
+        return ((seconds < 10) ? "0"+seconds : seconds );
     else
-        return minutes+":"+seconds;
-}
-
-function displaySecToMinSec(s) {
-    var minutes = Math.floor(s / 60);
-    var seconds = s - minutes * 60;
-    if (minutes == 0)
-        return seconds+"s";
-    else
-        return minutes + "m "+seconds+"s";
+        return ((minutes < 10) ? "0"+minutes : minutes )+":"+((seconds < 10) ? "0"+seconds : seconds );
 }
 
 function checkPlayerCd(pos, id) {
