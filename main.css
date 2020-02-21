@@ -13,6 +13,7 @@
 }
 .sum {
     position: absolute;
+    top: 30px;
     transform: translateX(-50%);
     transition: all 0.3s ease;
 }
@@ -61,4 +62,23 @@
 body {
     margin: 0;
     padding: 0;
+}
+.player-pos {
+    text-align: center;
+    font-size: 25px;
+    color: #212529;
+    font-weight: bold;
+}
+.summ-hidder {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    background: rgba(0,0,0,0.4);
+    top: 30px;
+    transform: translateX(-50%);
+    display: none;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    line-height: 64px;
 }
