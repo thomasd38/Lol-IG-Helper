@@ -228,6 +228,12 @@ function useSumm(pos, id, nb = 1) {
     }
 }
 
+function toggleDarkMode() {
+    console.log('coucou');
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+}
+
 function changeSum(e, pos, sum) {
     e.preventDefault();
     let x = e.clientX;
